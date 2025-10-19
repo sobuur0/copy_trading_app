@@ -82,13 +82,9 @@ class _MainScaffoldState extends State<MainScaffold> {
                   width: 48,
                   height: 48,
                   margin: const EdgeInsets.only(top: 12),
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     shape: BoxShape.circle,
-                    gradient: const LinearGradient(
-                      colors: [Color(0xff2764FF), Color(0xff1D3573)],
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                    ),
+                    gradient: AppColors.moreForYouButtonGradient,
                   ),
                   child: InkWell(
                     borderRadius: BorderRadius.circular(16),
