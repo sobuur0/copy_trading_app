@@ -18,5 +18,7 @@ class AppAssets {
 
   static const String coinSwap = '$svgsPath/coinSwap.svg';
 
+  static const String moreForYouLeadingIcon = '$svgsPath/orbIcons.svg';
+
   static const String roqqNdRollIcon = '$svgsPath/roqqNdRoll.svg';
 }

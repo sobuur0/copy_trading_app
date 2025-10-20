@@ -15,8 +15,10 @@ class AppColors {
   static const Color grayishBlue = Color(0xff767680);
 
   static const Color redPrimary = Color(0xffFF554A);
+
   static const Color textError = Color(0xffF04438);
   static const Color textSuccess = Color(0xff12B76A);
+  static const Color textWarning = Color(0xffF79009);
 
   static const LinearGradient moreForYouButtonGradient = LinearGradient(
     colors: [Color(0xff2764FF), Color(0xff1D3573)],

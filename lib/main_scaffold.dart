@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -5,6 +7,7 @@ import 'package:roqqu_assesement/core/constants/app_assets.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
+import 'package:roqqu_assesement/features/more_for_you/widget/more_for_you_widget.dart';
 
 class MainScaffold extends StatefulWidget {
   final Widget child;
@@ -15,8 +18,46 @@ class MainScaffold extends StatefulWidget {
   State<MainScaffold> createState() => _MainScaffoldState();
 }
 
-class _MainScaffoldState extends State<MainScaffold> {
+class _MainScaffoldState extends State<MainScaffold>
+    with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
+  bool _showMoreForYou = false;
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _opacityAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 300),
+    );
+    _scaleAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOutBack),
+    );
+    _opacityAnimation = CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    );
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  void _toggleMoreForYou() {
+    setState(() {
+      _showMoreForYou = !_showMoreForYou;
+    });
+    if (_showMoreForYou) {
+      _animationController.forward();
+    } else {
+      _animationController.reverse();
+    }
+  }
 
   void _onItemTapped(int index) {
     setState(() {
@@ -38,15 +79,43 @@ class _MainScaffoldState extends State<MainScaffold> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: widget.child,
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(color: AppColors.bgMisc5),
-        child: LayoutBuilder(
-          builder: (context, constraint) {
-            final responsive = Responsive(constraint);
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final responsive = Responsive(constraints);
 
-            return SizedBox(
+        return Scaffold(
+          body: Stack(
+            children: [
+              widget.child,
+              if (_showMoreForYou)
+                Positioned.fill(
+                  bottom: responsive.height(9),
+                  child: Container(
+                    height: constraints.maxHeight,
+                    color: Colors.black.withValues(alpha: .4),
+                    child: GestureDetector(
+                      // onTap: _toggleMoreForYou,
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 8, sigmaY: 8),
+                        child: ScaleTransition(
+                          scale: _scaleAnimation,
+                          child: FadeTransition(
+                            opacity: _opacityAnimation,
+                            child: Align(
+                              alignment: Alignment.bottomCenter,
+                              child: MoreForYouWidget(),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+            ],
+          ),
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(color: AppColors.bgMisc5),
+            child: SizedBox(
               height: responsive.height(106),
               child: Stack(
                 children: [
@@ -80,35 +149,42 @@ class _MainScaffoldState extends State<MainScaffold> {
                       ),
                     ],
                   ),
-                  Positioned(
-                    left: 0,
-                    right: 0,
-                    top: 0,
-                    child: Container(
-                      width: responsive.height(48),
-                      height: responsive.width(48),
-                      margin: const EdgeInsets.only(top: 12),
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        gradient: AppColors.moreForYouButtonGradient,
-                      ),
-                      child: InkWell(
-                        borderRadius: BorderRadius.circular(16),
-                        onTap: () {},
-                        child: const Icon(
-                          Icons.grid_view_outlined,
-                          color: Colors.white,
-                          size: 24,
+                  Align(
+                    alignment: Alignment.topCenter,
+                    child: Material(
+                      color: Colors.transparent,
+                      child: Container(
+                        width: responsive.height(48),
+                        height: responsive.width(48),
+                        margin: const EdgeInsets.only(top: 12),
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          gradient: AppColors.moreForYouButtonGradient,
+                        ),
+                        child: InkWell(
+                          borderRadius: BorderRadius.circular(24),
+                          onTap: _toggleMoreForYou,
+                          child: AnimatedSwitcher(
+                            duration: const Duration(milliseconds: 400),
+                            child: Icon(
+                              _showMoreForYou
+                                  ? Icons.clear
+                                  : Icons.grid_view_outlined,
+                              key: ValueKey(_showMoreForYou),
+                              color: Colors.white,
+                              size: 24,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
                 ],
               ),
-            );
-          },
-        ),
-      ),
+            ),
+          ),
+        );
+      },
     );
   }
 
