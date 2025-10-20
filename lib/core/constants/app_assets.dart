@@ -27,4 +27,6 @@ class AppAssets {
   static const String copyTradeDashboardIcon = '$svgsPath/dashboardIcon.svg';
 
   static const String roqqNdRollIcon = '$svgsPath/roqqNdRoll.svg';
+
+  static const String importantMessage = '$pngsPath/important_message.png';
 }

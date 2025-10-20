@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:roqqu_assesement/core/constants/app_assets.dart';
+import 'package:roqqu_assesement/core/constants/app_routes.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
@@ -109,7 +111,7 @@ class CopyTradingDashboardScreen extends StatelessWidget {
                 ...traders.map(
                   (trader) => Padding(
                     padding: EdgeInsets.only(bottom: responsive.height(16)),
-                    child: _buildTraderCard(trader, responsive),
+                    child: _buildTraderCard(trader, responsive, context),
                   ),
                 ),
               ],
@@ -180,165 +182,199 @@ class CopyTradingDashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildTraderCard(ProTraderData trader, Responsive responsive) {
-    return Container(
-      padding: EdgeInsets.all(responsive.width(16)),
-      decoration: BoxDecoration(
-        color: AppColors.bgSecondary,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Stack(
-                children: [
-                  Container(
-                    width: responsive.width(40),
-                    height: responsive.width(40),
-                    decoration: BoxDecoration(
-                      color: AppColors.bgBorder,
-                      shape: BoxShape.circle,
+  Widget _buildTraderCard(
+    ProTraderData trader,
+    Responsive responsive,
+    BuildContext context,
+  ) {
+    return GestureDetector(
+      onTap: () {
+        context.push(AppRoutes.tradingDetails, extra: trader);
+      },
+      child: Container(
+        padding: EdgeInsets.all(responsive.width(16)),
+        decoration: BoxDecoration(
+          color: AppColors.bgSecondary,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          children: [
+            Row(
+              children: [
+                Stack(
+                  children: [
+                    Container(
+                      width: responsive.width(40),
+                      height: responsive.width(40),
+                      decoration: BoxDecoration(
+                        color: AppColors.bgBorder,
+                        shape: BoxShape.circle,
+                      ),
+                      child: Center(
+                        child: Text(
+                          trader.initials,
+                          style: AppTypography.extraSmall(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                      ),
                     ),
-                    child: Center(
-                      child: Text(
-                        trader.initials,
+                    if (trader.isVerified)
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: Container(
+                          width: responsive.width(14),
+                          height: responsive.width(14),
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: AppColors.bgSecondary,
+                              width: 2,
+                            ),
+                          ),
+                          child: Icon(
+                            Icons.check,
+                            color: Colors.white,
+                            size: responsive.width(8),
+                          ),
+                        ),
+                      ),
+                  ],
+                ),
+                SizedBox(width: responsive.width(12)),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        trader.name,
                         style: AppTypography.extraSmall(
-                          color: Colors.white,
+                          color: AppColors.textPrimary,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
-                    ),
-                  ),
-                  if (trader.isVerified)
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        width: responsive.width(14),
-                        height: responsive.width(14),
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            color: AppColors.bgSecondary,
-                            width: 2,
-                          ),
-                        ),
-                        child: Icon(
-                          Icons.check,
-                          color: Colors.white,
-                          size: responsive.width(8),
-                        ),
-                      ),
-                    ),
-                ],
-              ),
-              SizedBox(width: responsive.width(12)),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      trader.name,
-                      style: AppTypography.extraSmall(
-                        color: AppColors.textPrimary,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.people,
-                          color: AppColors.textSecondary,
-                          size: responsive.width(12),
-                        ),
-                        SizedBox(width: responsive.width(4)),
-                        Text(
-                          '${trader.followers}',
-                          style: AppTypography.extraSmall(
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.people,
                             color: AppColors.textSecondary,
-                            fontSize: 10,
+                            size: responsive.width(12),
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(
-                  horizontal: responsive.width(12),
-                  vertical: responsive.height(6),
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.bgPrimary,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: Text(
-                  'Copy',
-                  style: AppTypography.extraSmall(
-                    color: Colors.white,
-                    fontSize: 12,
+                          SizedBox(width: responsive.width(4)),
+                          Text(
+                            '${trader.followers}',
+                            style: AppTypography.extraSmall(
+                              color: AppColors.textSecondary,
+                              fontSize: 10,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                 ),
-              ),
-            ],
-          ),
-          SizedBox(height: responsive.height(16)),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'ROI',
-                      style: AppTypography.extraSmall(
-                        color: AppColors.textSecondary,
-                        fontSize: 10,
-                      ),
+                Container(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: responsive.width(12),
+                    vertical: responsive.height(6),
+                  ),
+                  decoration: BoxDecoration(
+                    color: AppColors.bgPrimary,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Text(
+                    'Copy',
+                    style: AppTypography.extraSmall(
+                      color: Colors.white,
+                      fontSize: 12,
                     ),
-                    Text(
-                      trader.roi,
-                      style: AppTypography.extraSmall(
-                        color: Color(0xff4CAF50),
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                    SizedBox(height: responsive.height(4)),
-                    Text(
-                      'Total PNL: ${trader.totalPnl}',
-                      style: AppTypography.extraSmall(
-                        color: AppColors.textSecondary,
-                        fontSize: 10,
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
-              ),
-              SizedBox(
-                width: responsive.width(100),
-                height: responsive.height(60),
-                child: Placeholder(),
-              ),
-            ],
-          ),
-          SizedBox(height: responsive.height(16)),
-          Row(
-            children: [
-              Expanded(
-                child: Row(
+              ],
+            ),
+            SizedBox(height: responsive.height(16)),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'ROI',
+                        style: AppTypography.extraSmall(
+                          color: AppColors.textSecondary,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        trader.roi,
+                        style: AppTypography.extraSmall(
+                          color: Color(0xff4CAF50),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: responsive.height(4)),
+                      Text(
+                        'Total PNL: ${trader.totalPnl}',
+                        style: AppTypography.extraSmall(
+                          color: AppColors.textSecondary,
+                          fontSize: 10,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  width: responsive.width(100),
+                  height: responsive.height(60),
+                  child: Placeholder(),
+                ),
+              ],
+            ),
+            SizedBox(height: responsive.height(16)),
+            Row(
+              children: [
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        'Win rate: ',
+                        style: AppTypography.extraSmall(
+                          color: AppColors.textSecondary,
+                          fontSize: 10,
+                        ),
+                      ),
+                      Text(
+                        trader.winRate,
+                        style: AppTypography.extraSmall(
+                          color: AppColors.textPrimary,
+                          fontSize: 10,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
                   children: [
+                    Icon(
+                      Icons.access_time,
+                      color: AppColors.textSecondary,
+                      size: responsive.width(12),
+                    ),
+                    SizedBox(width: responsive.width(4)),
                     Text(
-                      'Win rate: ',
+                      'AUM: ',
                       style: AppTypography.extraSmall(
                         color: AppColors.textSecondary,
                         fontSize: 10,
                       ),
                     ),
                     Text(
-                      trader.winRate,
+                      trader.aum,
                       style: AppTypography.extraSmall(
                         color: AppColors.textPrimary,
                         fontSize: 10,
@@ -347,35 +383,10 @@ class CopyTradingDashboardScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-              ),
-              Row(
-                children: [
-                  Icon(
-                    Icons.access_time,
-                    color: AppColors.textSecondary,
-                    size: responsive.width(12),
-                  ),
-                  SizedBox(width: responsive.width(4)),
-                  Text(
-                    'AUM: ',
-                    style: AppTypography.extraSmall(
-                      color: AppColors.textSecondary,
-                      fontSize: 10,
-                    ),
-                  ),
-                  Text(
-                    trader.aum,
-                    style: AppTypography.extraSmall(
-                      color: AppColors.textPrimary,
-                      fontSize: 10,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

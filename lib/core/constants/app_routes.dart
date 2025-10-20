@@ -6,4 +6,5 @@ class AppRoutes {
   static const String copyTradingIntro = '/copy-trading-intro';
   static const String conversationalEngagement = '/conversational-engagement';
   static const String copyTradingDashboard = '/copy-trading-dashboard';
+  static const String tradingDetails = '/trading-details';
 }

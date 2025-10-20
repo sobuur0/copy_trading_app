@@ -5,6 +5,8 @@ import '../../features/home/screens/home_screen.dart';
 import '../../features/copy_trading/screens/copy_trading_intro_screen.dart';
 import '../../features/copy_trading/screens/conversational_engagement_screen.dart';
 import '../../features/copy_trading/screens/copy_trading_dashboard_screen.dart';
+import '../../features/copy_trading/screens/trading_details_screen.dart';
+import '../../shared/models/pro_trader_data.dart';
 import '../constants/app_routes.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -65,6 +67,16 @@ final GoRouter appRouter = GoRouter(
       pageBuilder: (context, state) => const NoTransitionPage(
         child: CopyTradingDashboardScreen(),
       ),
+    ),
+    GoRoute(
+      path: AppRoutes.tradingDetails,
+      name: 'tradingDetails',
+      pageBuilder: (context, state) {
+        final trader = state.extra as ProTraderData;
+        return NoTransitionPage(
+          child: TradingDetailsScreen(trader: trader),
+        );
+      },
     ),
   ],
 );
