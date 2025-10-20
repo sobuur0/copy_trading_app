@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:roqqu_assesement/core/constants/app_assets.dart';
+import 'package:roqqu_assesement/core/constants/app_routes.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
 import 'package:roqqu_assesement/shared/models/intro_page_data.dart';
+import 'package:roqqu_assesement/shared/widgets/app_bottom_nav_button.dart';
 
 class CopyTradingIntroScreen extends StatefulWidget {
   const CopyTradingIntroScreen({super.key});
@@ -55,40 +58,19 @@ class _CopyTradingIntroScreenState extends State<CopyTradingIntroScreen> {
               style: AppTypography.textMedium(color: Colors.white),
             ),
           ),
-          bottomNavigationBar: Container(
-            padding: EdgeInsets.all(responsive.width(16)),
-            decoration: BoxDecoration(color: AppColors.bgSecondary),
-            child: SafeArea(
-              child: Container(
-                width: double.infinity,
-                height: responsive.height(48),
-                decoration: BoxDecoration(
-                  gradient: AppColors.getStartedButtonGradient,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  onTap: () {
-                    if (_currentPage < _pages.length - 1) {
-                      _pageController.nextPage(
-                        duration: Duration(milliseconds: 300),
-                        curve: Curves.easeInOut,
-                      );
-                    } else {}
-                  },
-                  child: Center(
-                    child: Text(
-                      'Get started',
-                      style: AppTypography.headingMobileExtraSmall(
-                        color: Colors.white,
-                        fontSize: 16,
-                        lineHeight: 24,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ),
+          bottomNavigationBar: AppBottomNavButton(
+            text: 'Get started',
+            responsive: responsive,
+            onTap: () {
+              if (_currentPage < _pages.length - 1) {
+                _pageController.nextPage(
+                  duration: Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              } else {
+                context.push(AppRoutes.conversationalEngagement);
+              }
+            },
           ),
           body: Column(
             children: [
