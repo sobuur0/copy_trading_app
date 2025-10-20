@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:roqqu_assesement/core/constants/app_assets.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 
@@ -48,26 +49,26 @@ class _MainScaffoldState extends State<MainScaffold> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   _buildNavItem(
-                    iconPath: 'assets/svgs/home.svg',
+                    iconPath: AppAssets.home,
                     label: 'Home',
                     index: 0,
                     isEnabled: true,
                   ),
                   _buildNavItem(
-                    iconPath: 'assets/svgs/wallet.svg',
+                    iconPath: AppAssets.wallet,
                     label: 'Wallet',
                     index: 1,
                     isEnabled: false,
                   ),
                   const SizedBox(width: 80),
                   _buildNavItem(
-                    iconPath: 'assets/svgs/transaction.svg',
+                    iconPath: AppAssets.transaction,
                     label: 'History',
                     index: 2,
                     isEnabled: false,
                   ),
                   _buildNavItem(
-                    iconPath: 'assets/svgs/profile.svg',
+                    iconPath: AppAssets.profile,
                     label: 'Profile',
                     index: 3,
                     isEnabled: false,
