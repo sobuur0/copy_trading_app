@@ -20,6 +20,8 @@ class AppColors {
   static const Color textSuccess = Color(0xff12B76A);
   static const Color textWarning = Color(0xffF79009);
 
+  static const Color fgLink = Color(0xff85D1F0);
+
   static const LinearGradient moreForYouButtonGradient = LinearGradient(
     colors: [Color(0xff2764FF), Color(0xff1D3573)],
     begin: Alignment.topCenter,
@@ -32,5 +34,11 @@ class AppColors {
 
   static const LinearGradient copyTradingCardGradient = LinearGradient(
     colors: [Color(0xffABE2F3), Color(0xffBDE4E5), Color(0xffEBE9D0)],
+  );
+
+  static const LinearGradient getStartedButtonGradient = LinearGradient(
+    colors: [Color(0xff4E5BF4), Color(0xffE54DB4)],
+    begin: Alignment.centerLeft,
+    end: Alignment.centerRight,
   );
 }

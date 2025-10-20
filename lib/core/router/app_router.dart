@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import '../../main_scaffold.dart';
 import '../../features/home/screens/home_screen.dart';
+import '../../features/copy_trading/screens/copy_trading_intro_screen.dart';
+import '../constants/app_routes.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/home',
+  initialLocation: AppRoutes.home,
   routes: [
     ShellRoute(
       builder: (context, state, child) {
@@ -12,34 +14,41 @@ final GoRouter appRouter = GoRouter(
       },
       routes: [
         GoRoute(
-          path: '/home',
+          path: AppRoutes.home,
           name: 'home',
           pageBuilder: (context, state) => const NoTransitionPage(
             child: HomeScreen(),
           ),
         ),
         GoRoute(
-          path: '/wallet',
+          path: AppRoutes.wallet,
           name: 'wallet',
           pageBuilder: (context, state) => const NoTransitionPage(
             child: Placeholder(),
           ),
         ),
         GoRoute(
-          path: '/history',
+          path: AppRoutes.history,
           name: 'history',
           pageBuilder: (context, state) => const NoTransitionPage(
             child: Placeholder(),
           ),
         ),
         GoRoute(
-          path: '/profile',
+          path: AppRoutes.profile,
           name: 'profile',
           pageBuilder: (context, state) => const NoTransitionPage(
             child: Placeholder(),
           ),
         ),
       ],
+    ),
+    GoRoute(
+      path: AppRoutes.copyTradingIntro,
+      name: 'copyTradingIntro',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: CopyTradingIntroScreen(),
+      ),
     ),
   ],
 );

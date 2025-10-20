@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:roqqu_assesement/core/constants/app_assets.dart';
+import 'package:roqqu_assesement/core/constants/app_routes.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
@@ -12,7 +13,10 @@ import 'package:roqqu_assesement/features/more_for_you/widget/more_for_you_widge
 class MainScaffold extends StatefulWidget {
   final Widget child;
 
-  const MainScaffold({super.key, required this.child});
+  const MainScaffold({
+    super.key,
+    required this.child,
+  });
 
   @override
   State<MainScaffold> createState() => _MainScaffoldState();
@@ -66,7 +70,7 @@ class _MainScaffoldState extends State<MainScaffold>
 
     switch (index) {
       case 0:
-        context.go('/home');
+        context.go(AppRoutes.home);
         break;
       case 1:
         break;
@@ -103,7 +107,9 @@ class _MainScaffoldState extends State<MainScaffold>
                             opacity: _opacityAnimation,
                             child: Align(
                               alignment: Alignment.bottomCenter,
-                              child: MoreForYouWidget(),
+                              child: MoreForYouWidget(
+                                onNavigate: _toggleMoreForYou,
+                              ),
                             ),
                           ),
                         ),

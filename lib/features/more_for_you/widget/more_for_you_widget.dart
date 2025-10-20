@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:roqqu_assesement/core/constants/app_assets.dart';
+import 'package:roqqu_assesement/core/constants/app_routes.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
 
 class MoreForYouWidget extends StatelessWidget {
-  const MoreForYouWidget({super.key});
+  final VoidCallback onNavigate;
+
+  const MoreForYouWidget({super.key, required this.onNavigate});
 
   @override
   Widget build(BuildContext context) {
@@ -144,45 +148,57 @@ class MoreForYouWidget extends StatelessWidget {
     required String title,
     bool hasNewBadge = false,
   }) {
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-      dense: true,
-      leading: Container(
-        padding: EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: AppColors.bgMisc1,
-          shape: BoxShape.circle,
-        ),
-        child: SvgPicture.asset(AppAssets.moreForYouLeadingIcon),
-      ),
-      title: Text(
-        title,
-        style: AppTypography.headingMobileExtraSmall(
-          color: AppColors.textPrimary,
-          fontSize: 14,
-          lineHeight: 24,
-        ),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          if (hasNewBadge) ...[
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
-              decoration: BoxDecoration(
-                color: Color(0xffDE9B09).withValues(alpha: 0.08),
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: Text(
-                'New',
-                style: AppTypography.extraSmall(color: AppColors.textWarning),
-              ),
+    return Builder(
+      builder: (context) {
+        return ListTile(
+          contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+          dense: true,
+          onTap: () {
+            if (title == 'Copy trading') {
+              onNavigate();
+              context.push(AppRoutes.copyTradingIntro);
+            }
+          },
+          leading: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: AppColors.bgMisc1,
+              shape: BoxShape.circle,
             ),
-            SizedBox(width: 8),
-          ],
-          Icon(Icons.chevron_right, color: Colors.white),
-        ],
-      ),
+            child: SvgPicture.asset(AppAssets.moreForYouLeadingIcon),
+          ),
+          title: Text(
+            title,
+            style: AppTypography.headingMobileExtraSmall(
+              color: AppColors.textPrimary,
+              fontSize: 14,
+              lineHeight: 24,
+            ),
+          ),
+          trailing: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (hasNewBadge) ...[
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 2, horizontal: 6),
+                  decoration: BoxDecoration(
+                    color: Color(0xffDE9B09).withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  child: Text(
+                    'New',
+                    style: AppTypography.extraSmall(
+                      color: AppColors.textWarning,
+                    ),
+                  ),
+                ),
+                SizedBox(width: 8),
+              ],
+              Icon(Icons.chevron_right, color: Colors.white),
+            ],
+          ),
+        );
+      },
     );
   }
 }

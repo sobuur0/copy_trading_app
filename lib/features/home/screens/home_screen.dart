@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import 'package:roqqu_assesement/core/constants/app_assets.dart';
+import 'package:roqqu_assesement/core/constants/app_routes.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
@@ -251,44 +253,49 @@ class _HomeScreenState extends State<HomeScreen> {
 
                       SizedBox(height: responsive.height(32)),
 
-                      Container(
-                        height: constraint.maxWidth * 0.28,
-                        margin: EdgeInsets.symmetric(horizontal: 16),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border(),
-                          gradient: AppColors.copyTradingCardGradient,
-                        ),
-                        child: Stack(
-                          children: [
-                            Positioned(
-                              right: 0,
-                              bottom: 0,
-                              child: SvgPicture.asset(AppAssets.roqqNdRollIcon),
-                            ),
-
-                            Positioned(
-                              top: responsive.height(16),
-                              left: responsive.height(16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    'Copy Trading',
-                                    style: AppTypography.headingMobileSmall(
-                                      color: AppColors.baseBlack,
-                                    ),
-                                  ),
-                                  Text(
-                                    'Discover our latest feature. Follow and watch\nthe PRO traders closely and win like a PRO!\nWe are rooting for you!',
-                                    style: AppTypography.extraSmall(
-                                      color: AppColors.baseBlack,
-                                    ),
-                                  ),
-                                ],
+                      InkWell(
+                        onTap: () => context.push(AppRoutes.copyTradingIntro),
+                        child: Container(
+                          height: constraint.maxWidth * 0.28,
+                          margin: EdgeInsets.symmetric(horizontal: 16),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(16),
+                            border: Border(),
+                            gradient: AppColors.copyTradingCardGradient,
+                          ),
+                          child: Stack(
+                            children: [
+                              Positioned(
+                                right: 0,
+                                bottom: 0,
+                                child: SvgPicture.asset(
+                                  AppAssets.roqqNdRollIcon,
+                                ),
                               ),
-                            ),
-                          ],
+
+                              Positioned(
+                                top: responsive.height(16),
+                                left: responsive.height(16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      'Copy Trading',
+                                      style: AppTypography.headingMobileSmall(
+                                        color: AppColors.baseBlack,
+                                      ),
+                                    ),
+                                    Text(
+                                      'Discover our latest feature. Follow and watch\nthe PRO traders closely and win like a PRO!\nWe are rooting for you!',
+                                      style: AppTypography.extraSmall(
+                                        color: AppColors.baseBlack,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
 

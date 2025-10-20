@@ -1,5 +1,6 @@
 class AppAssets {
   static const String svgsPath = 'assets/svgs';
+  static const String pngsPath = 'assets/pngs';
 
   static const String flagIcon = '$svgsPath/flagIcon.svg';
   static const String headphones = '$svgsPath/headphones.svg';
@@ -19,6 +20,9 @@ class AppAssets {
   static const String coinSwap = '$svgsPath/coinSwap.svg';
 
   static const String moreForYouLeadingIcon = '$svgsPath/orbIcons.svg';
+
+  static const String copyTradingIntro1 = '$pngsPath/copy_trader_1.png';
+  static const String copyTradingIntro2 = '$pngsPath/copy_trader_2.png';
 
   static const String roqqNdRollIcon = '$svgsPath/roqqNdRoll.svg';
 }

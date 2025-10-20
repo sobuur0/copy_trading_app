@@ -32,16 +32,33 @@ class AppTypography {
     );
   }
 
+  static TextStyle textMedium({
+    FontWeight fontWeight = FontWeight.w500,
+    double fontSize = 16,
+    Color? color,
+    double? letterSpacing,
+    double? lineHeight,
+  }) {
+    return GoogleFonts.inter(
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      height: 24 / fontSize,
+      letterSpacing: letterSpacing ?? 0,
+      color: color,
+    );
+  }
+
   static TextStyle headingMobileLarge({
     FontWeight fontWeight = FontWeight.w800,
     double fontSize = 32,
     Color? color,
     double? letterSpacing,
+    double? lineHeight,
   }) {
     return GoogleFonts.inter(
       fontSize: fontSize,
       fontWeight: fontWeight,
-      height: 40 / 32,
+      height: (lineHeight ?? 40) / fontSize,
       letterSpacing: letterSpacing ?? 0,
       color: color,
     );
@@ -83,7 +100,7 @@ class AppTypography {
     double fontSize = 12,
     Color? color,
     double? letterSpacing,
-    int? lineHeight,
+    double? lineHeight,
   }) {
     return GoogleFonts.inter(
       fontSize: fontSize,
