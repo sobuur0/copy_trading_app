@@ -97,11 +97,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   Spacer(),
                   Icon(CupertinoIcons.search, color: AppColors.bgPrimary),
-                  SizedBox(width: 16),
+                  SizedBox(width: responsive.width(16)),
                   SvgPicture.asset(AppAssets.headphones),
-                  SizedBox(width: 16),
+                  SizedBox(width: responsive.width(16)),
                   SvgPicture.asset(AppAssets.notificationIcon),
-                  SizedBox(width: 16),
+                  SizedBox(width: responsive.width(16)),
                   Container(
                     padding: EdgeInsets.all(4),
                     decoration: BoxDecoration(
@@ -111,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Row(
                       children: [
                         SvgPicture.asset(AppAssets.flagIcon),
-                        SizedBox(width: 8),
+                        SizedBox(width: responsive.width(8)),
                         Icon(
                           Icons.keyboard_arrow_down,
                           color: AppColors.baseBlack,
@@ -149,7 +149,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               color: AppColors.textSecondary,
                             ),
                           ),
-                          SizedBox(width: 4),
+                          SizedBox(width: responsive.width(4)),
                           Icon(
                             Icons.visibility_outlined,
                             size: 14,
@@ -268,8 +268,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
 
                             Positioned(
-                              top: 16,
-                              left: 16,
+                              top: responsive.height(16),
+                              left: responsive.height(16),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
