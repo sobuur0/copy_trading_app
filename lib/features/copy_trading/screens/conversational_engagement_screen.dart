@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:roqqu_assesement/core/constants/app_routes.dart';
 import 'package:roqqu_assesement/core/theme/app_colors.dart';
 import 'package:roqqu_assesement/core/theme/app_typography.dart';
 import 'package:roqqu_assesement/core/utils/responsive.dart';
@@ -55,7 +57,9 @@ class _ConversationalEngagementScreenState
           bottomNavigationBar: AppBottomNavButton(
             text: 'Proceed',
             responsive: responsive,
-            onTap: () {},
+            onTap: () {
+              context.push(AppRoutes.copyTradingDashboard);
+            },
           ),
           body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: responsive.width(16)),

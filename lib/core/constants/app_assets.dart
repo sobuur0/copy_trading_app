@@ -24,5 +24,7 @@ class AppAssets {
   static const String copyTradingIntro1 = '$pngsPath/copy_trader_1.png';
   static const String copyTradingIntro2 = '$pngsPath/copy_trader_2.png';
 
+  static const String copyTradeDashboardIcon = '$svgsPath/dashboardIcon.svg';
+
   static const String roqqNdRollIcon = '$svgsPath/roqqNdRoll.svg';
 }

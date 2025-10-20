@@ -4,6 +4,7 @@ import '../../main_scaffold.dart';
 import '../../features/home/screens/home_screen.dart';
 import '../../features/copy_trading/screens/copy_trading_intro_screen.dart';
 import '../../features/copy_trading/screens/conversational_engagement_screen.dart';
+import '../../features/copy_trading/screens/copy_trading_dashboard_screen.dart';
 import '../constants/app_routes.dart';
 
 final GoRouter appRouter = GoRouter(
@@ -56,6 +57,13 @@ final GoRouter appRouter = GoRouter(
       name: 'conversationalEngagement',
       pageBuilder: (context, state) => const NoTransitionPage(
         child: ConversationalEngagementScreen(),
+      ),
+    ),
+    GoRoute(
+      path: AppRoutes.copyTradingDashboard,
+      name: 'copyTradingDashboard',
+      pageBuilder: (context, state) => const NoTransitionPage(
+        child: CopyTradingDashboardScreen(),
       ),
     ),
   ],
